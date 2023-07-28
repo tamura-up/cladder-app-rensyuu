@@ -34,6 +34,7 @@ RUN  curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | \
      apt-get update && \
      apt-get install -y postgresql-client-15 libpq-dev
 
+
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -60,5 +61,8 @@ RUN pip --no-cache-dir install -r requirements.txt
 RUN mkdir -p ${APP_DIR}
 WORKDIR ${APP_DIR}
 
+
 # for debug
-# USER root
+USER root
+RUN apt-get update && apt-get -y install vim
+USER appuser
