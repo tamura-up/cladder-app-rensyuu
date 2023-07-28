@@ -3,10 +3,9 @@ import type { AppPropsWithLayout } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import React, { useEffect, useState } from 'react';
-// import { useAtomsDebugValue } from 'jotai/devtools';
 import { DevTools } from 'jotai-devtools';
 
-import { Provider as JotaiProvider, useAtom } from 'jotai';
+import { useAtom } from 'jotai';
 
 import { SnackbarKey, SnackbarProvider } from 'notistack';
 import { IconButton, styled } from '@mui/material';
@@ -30,15 +29,6 @@ const queryClientOptions = {
     },
   },
 };
-
-/*
- * Jotai のデバッグ用の関数
- * ref: https://jotai.org/docs/api/devtools
- */
-// const DebugAtoms = () => {
-//   // useAtomsDebugValue();
-//   return null;
-// };
 
 /*
  * マウント時の認証
@@ -89,8 +79,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 
   /* layout 設定
-   * 各ページのコンポーネントが getLayout 関数を持っている場合はそれを呼び出すようにする。
-   * 各ページの実装では getLayout 関数で そのページで使用する Layout を適用する。
+   * 各ページのコンポーネントが getLayout 関数を持っている場合はそれを呼び出す。
+   * 各ページは getLayout 関数で そのページで使用する Layout を指定できる。
    * 参考: https://nextjs.org/docs/basic-features/layouts#with-typescript
    *      https://zenn.dev/hisho/articles/fe9f4ec4a8e691
    */
@@ -100,7 +90,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <DevTools />
+      <DevTools /> {/* Jotai devtools */}
       {/* https://react-query.tanstack.com/guides/ssr#using-nextjs */}
       <Hydrate
         state={pageProps.dehydratedState}> {/* TODO: よくわかっていない. react-query のサンプルに有ったので追加 */}
