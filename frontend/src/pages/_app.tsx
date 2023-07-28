@@ -1,7 +1,7 @@
 import '../../styles/globals.css';
 import type { AppPropsWithLayout } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { Hydrate, QueryClient, QueryClientProvider, type DehydratedState } from 'react-query';
 import React, { useEffect, useState } from 'react';
 import { DevTools } from 'jotai-devtools';
 
@@ -57,7 +57,7 @@ function AppInit() {
 }
 
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({ Component, pageProps }: AppPropsWithLayout<{ dehydratedState: DehydratedState }>) {
   const [queryClient] = useState(() => new QueryClient(queryClientOptions));
 
   // snackbar の設定
