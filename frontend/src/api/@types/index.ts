@@ -244,12 +244,10 @@ export type LoginResponse = {
 
   user: UserDetail
 
-  accessExpiration: string
-  refreshExpiration: string
   /** アクセストークンの有効期限 */
-  accessTokenExpiration: string
+  accessExpiration: string
   /** リフレッシュトークンの有効期限 */
-  refreshTokenExpiration: string
+  refreshExpiration: string
 }
 
 export type PaginatedEvaluationApplicationList = {
@@ -378,7 +376,9 @@ export type PatchedUserDetailRequest = {
 
 export type RefreshTokenResponse = {
   /** 新しいトークンの有効期限 */
-  accessTokenExpiration: string
+  accessExpiration: string
+  /** 新しいリフレッシュトークンの有効期限 */
+  refreshExpiration: string
 }
 
 /** ユーザー登録リクエスト */

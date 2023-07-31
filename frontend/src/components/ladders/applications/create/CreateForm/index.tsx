@@ -1,18 +1,5 @@
-import {
-  Alert,
-  AlertTitle,
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  IconButton,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Button, FormControl, InputLabel, Stack, TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import FieldErrorMessages from '@/components/shared/FieldErrorMessages';
 import { useAtom } from 'jotai';
@@ -23,7 +10,7 @@ import { preprocessApiError, reformatToHookFormStyle } from '@/lib/apiErrorHandl
 import { useMutation } from 'react-query';
 import { apiClient } from '@/lib/apiClient';
 import { AxiosError } from 'axios';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import UserSelect from '@/components/shared/UserSelect';
 
 
 const CreateForm = () => {
@@ -70,6 +57,8 @@ const CreateForm = () => {
     setNonFieldErrors(null);
   };
 
+  const users=[{id:1,fullName:"test1"},{id:2,fullName:"test2"}];
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -77,27 +66,46 @@ const CreateForm = () => {
           <Controller
             name='user'
             control={control}
-            defaultValue={0}
-            rules={{ required: '選択してください'}}
-
+            defaultValue={-1}
+            rules={{ required: '選択してください' }}
             render={({ field }) =>
-              <TextField {...field}
-                         label='ユーザー'
-                         required
-                         InputLabelProps={{
-                           shrink: true,
-                         }}
-                         error={!!errors.user}
-                         helperText={errors.user?.message || ''}
-              />}
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <UserSelect
+                  {...field}
+                  data={users}
+                  required
+                  labelId="demo-simple-select-label"
+                  // id="demo-simple-select"
+                  label="Age"
+                />
+              </FormControl>
+            }
           />
+
+          {/*<Controller*/}
+          {/*  name='user'*/}
+          {/*  control={control}*/}
+          {/*  defaultValue={0}*/}
+          {/*  rules={{ required: '選択してください' }}*/}
+
+          {/*  render={({ field }) =>*/}
+          {/*    <TextField {...field}*/}
+          {/*               label='ユーザー'*/}
+          {/*               required*/}
+          {/*               InputLabelProps={{*/}
+          {/*                 shrink: true,*/}
+          {/*               }}*/}
+          {/*               error={!!errors.user}*/}
+          {/*               helperText={errors.user?.message || ''}*/}
+          {/*    />}*/}
+          {/*/>*/}
           <FieldErrorMessages name='user' errors={errors} />
           <Controller
             name='sheet'
             control={control}
-            defaultValue={0}
-            rules={{ required: '選択してください'}}
-
+            defaultValue={-1}
+            rules={{ required: '選択してください' }}
             render={({ field }) =>
               <TextField {...field}
                          label='シート'

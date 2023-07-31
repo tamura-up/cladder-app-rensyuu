@@ -35,8 +35,9 @@ const getCsrfToken = async () => {
 };
 
 export const login = (data: LoginRequest) => {
+
   return apiClient.auth.login.$post({ body: data }).then(res => {
-    const time = (new Date(res.accessTokenExpiration)).getTime();
+    const time = (new Date(res.accessExpiration)).getTime();
     localStorage.setItem('tokenExpireAt', String(time));
     return res;
   });
@@ -63,7 +64,7 @@ export const refreshToken = () => {
 
     return apiClient.auth.token.refresh.$post()
       .then(res => {
-        const time = (new Date(res.accessTokenExpiration)).getTime();
+        const time = (new Date(res.accessExpiration)).getTime();
         localStorage.setItem('tokenExpireAt', String(time));
       })
       .catch(reason => {
