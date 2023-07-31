@@ -15,8 +15,8 @@ class LoginResponseSerializer(OrgJWTSerializerWithExpiration):
     # access_token = None
     refresh_token = None
 
-    access_token_expiration = serializers.DateTimeField(read_only=True, help_text="アクセストークンの有効期限")
-    refresh_token_expiration = serializers.DateTimeField(read_only=True, help_text="リフレッシュトークンの有効期限")
+    access_expiration = serializers.DateTimeField(read_only=True, help_text="アクセストークンの有効期限")
+    refresh_expiration = serializers.DateTimeField(read_only=True, help_text="リフレッシュトークンの有効期限")
 
     # 行儀良くないが、schema 生成のためだけに継承
     @extend_schema_field(UserDetailSerializer)

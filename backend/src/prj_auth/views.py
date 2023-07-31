@@ -66,7 +66,8 @@ OrgRefreshViewCls = get_refresh_view()
         responses={
             200: inline_serializer(
                 name="RefreshTokenResponse",
-                fields={"accessTokenExpiration": serializers.DateTimeField(help_text="新しいトークンの有効期限")},
+                fields={"access_expiration": serializers.DateTimeField(help_text="新しいトークンの有効期限"),
+                        "refresh_expiration": serializers.DateTimeField(help_text="新しいリフレッシュトークンの有効期限")},
             )
         },
         description="アクセストークンをリフレッシュします",
