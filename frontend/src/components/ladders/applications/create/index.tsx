@@ -7,7 +7,6 @@ const CreateApplicationContainer = () => {
       <Paper>
         <Box sx={{ p: 3 }}>
           <Typography component='h2' variant='h5'>ラダー評価申請</Typography>
-
           <CreateForm />
         </Box>
       </Paper>

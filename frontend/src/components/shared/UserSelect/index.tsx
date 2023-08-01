@@ -1,8 +1,23 @@
 import React from 'react';
-import { MenuItem, Select } from '@mui/material';
+import { MenuItem, Select, SelectProps } from '@mui/material';
 
-const UserSelect = React.forwardRef(function X(props: any, ref: any) {
-  const { data: data, ..._props } = props;
+/**
+ * ユーザー選択用の Select
+ */
+
+
+interface UserInfo {
+  id: number,
+  fullName: string,
+}
+
+interface Props extends SelectProps {
+  users: UserInfo[];
+}
+
+
+const UserSelect = React.forwardRef(function X(props: Props, ref: any) {
+  const { users: data, ..._props } = props;
 
   return (<>
     <Select

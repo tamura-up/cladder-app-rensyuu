@@ -1,4 +1,4 @@
-import { Button, FormControl, InputLabel, Stack, TextField } from '@mui/material';
+import { Button, FormControl, InputLabel,  MenuItem, Select, Stack, TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import FieldErrorMessages from '@/components/shared/FieldErrorMessages';
@@ -11,6 +11,7 @@ import { useMutation } from 'react-query';
 import { apiClient } from '@/lib/apiClient';
 import { AxiosError } from 'axios';
 import UserSelect from '@/components/shared/UserSelect';
+import SheetSelect from '@/components/shared/SheetSelect';
 
 
 const CreateForm = () => {
@@ -57,12 +58,13 @@ const CreateForm = () => {
     setNonFieldErrors(null);
   };
 
-  const users=[{id:1,fullName:"test1"},{id:2,fullName:"test2"}];
+  const users = [{ id: 1, fullName: 'test1' }, { id: 2, fullName: 'test2' }];
+  const sheets = [{ id: 1, name: 'test1', level: 1 }, { id: 2, name: 'test2', level: 2 }];
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={2}>
+        <Stack spacing={2} sx={{ pt: 3 }}>
           <Controller
             name='user'
             control={control}
@@ -70,59 +72,49 @@ const CreateForm = () => {
             rules={{ required: '選択してください' }}
             render={({ field }) =>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <InputLabel id='user-select-label'>申請ユーザー</InputLabel>
                 <UserSelect
                   {...field}
-                  data={users}
+                  users={users}
+                  variant="outlined"
                   required
-                  labelId="demo-simple-select-label"
-                  // id="demo-simple-select"
-                  label="Age"
+                  labelId='user-select-label'
+                  id='user-select'
+                  label="申請ユーザー"
                 />
               </FormControl>
             }
           />
-
-          {/*<Controller*/}
-          {/*  name='user'*/}
-          {/*  control={control}*/}
-          {/*  defaultValue={0}*/}
-          {/*  rules={{ required: '選択してください' }}*/}
-
-          {/*  render={({ field }) =>*/}
-          {/*    <TextField {...field}*/}
-          {/*               label='ユーザー'*/}
-          {/*               required*/}
-          {/*               InputLabelProps={{*/}
-          {/*                 shrink: true,*/}
-          {/*               }}*/}
-          {/*               error={!!errors.user}*/}
-          {/*               helperText={errors.user?.message || ''}*/}
-          {/*    />}*/}
-          {/*/>*/}
           <FieldErrorMessages name='user' errors={errors} />
+
           <Controller
             name='sheet'
             control={control}
             defaultValue={-1}
             rules={{ required: '選択してください' }}
             render={({ field }) =>
-              <TextField {...field}
-                         label='シート'
-                         required
-                         InputLabelProps={{
-                           shrink: true,
-                         }}
-                         error={!!errors.sheet}
-                         helperText={errors.sheet?.message || ''}
-              />}
+              <FormControl
+                variant="outlined"
+                fullWidth>
+                <InputLabel id='sheet-select-label'>評価シート</InputLabel>
+                <SheetSelect
+                  {...field}
+                  sheets={sheets}
+                  required
+                  labelId='sheet-select-label'
+                  id='sheet-select'
+                  label="評価シート"
+                />
+              </FormControl>
+            }
           />
           <FieldErrorMessages name='sheet' errors={errors} />
 
           <FormErrorMessages errors={nonFieldErrors} />
-          <Button type='submit' variant='contained' disabled={loading}>登録</Button>
+          <Button type='submit' variant='contained' disabled={loading}>申請を提出</Button>
         </Stack>
       </form>
+
     </>
   );
 };
