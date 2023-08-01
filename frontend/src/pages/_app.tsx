@@ -36,15 +36,25 @@ const queryClientOptions = {
  */
 function AppInit() {
   // グローバルステートにユーザー情報をセットするためのもの
-  const [, setCurrentUser] = useAtom(currentUserAtom);
+  const [,setCurrentUser] = useAtom(currentUserAtom);
 
   useEffect(() => {
     (async function() {
       try {
-        await refreshToken();
+        /* ************ */
+        // 以下2行ほんとはいらないはずだが、デバッグ時の(?)2重リクエストのときに2回認証しようとするのを回避する
+        const expiredAt = localStorage.getItem('tokenExpireAt');
+        if (!expiredAt) return;
+        /* ************ */
+
+        const refreshPromise = refreshToken();
+        if (refreshPromise !== null) {
+          await refreshPromise;
+        }
         // サーバーへのリクエスト（未ログインの場合は401等を返すものとする）
         const user = await apiClient.auth.login_user.$get();
         setCurrentUser(user);
+
       } catch {
         // 未ログイン（未ログイン時のリダイレクト処理などをここに書いても良いかも）
         setCurrentUser(null);
