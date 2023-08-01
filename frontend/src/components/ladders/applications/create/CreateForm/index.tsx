@@ -1,29 +1,45 @@
-import { Button, FormControl, InputLabel,  MenuItem, Select, Stack, TextField } from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FieldErrorMessages from '@/components/shared/FieldErrorMessages';
 import { useAtom } from 'jotai';
 import { messageAtom } from '@/lib/jotaiAtom';
 import FormErrorMessages from '@/components/shared/FormErrorMessages';
-import { EvaluationApplicationWriteRequest } from '@/api/@types';
+import { EvaluationApplicationWriteRequest, LadderSheet } from '@/api/@types';
 import { preprocessApiError, reformatToHookFormStyle } from '@/lib/apiErrorHandle';
 import { useMutation } from 'react-query';
 import { apiClient } from '@/lib/apiClient';
 import { AxiosError } from 'axios';
 import UserSelect from '@/components/shared/UserSelect';
 import SheetSelect from '@/components/shared/SheetSelect';
+import { useAspidaQuery } from '@aspida/react-query';
 
 
 const CreateForm = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [, addMessage] = useAtom(messageAtom);
   const [nonFieldErrors, setNonFieldErrors] = useState<string[] | null>(null);
+
+  const [sheets,setSheets]=useState<LadderSheet[]>([]);
   const {
     handleSubmit,
     control,
     setError,
     formState: { errors },
   } = useForm<EvaluationApplicationWriteRequest>();
+
+  // シートデータの取得
+  const {
+    isLoading:isQuestionLoading,
+  } = useAspidaQuery(apiClient.ladder.sheets, { query: { limit: 1000 } ,
+    onSuccess:(data)=>{
+      setSheets(data.results!);
+    },
+    onError:()=>{
+      addMessage({ text: '予期せぬエラーが発生しました。', 'variant': 'error' });
+    }
+  });
+
 
   const postRegister = (body: EvaluationApplicationWriteRequest) => {
     return apiClient.ladder.applications.$post({ body });
@@ -59,7 +75,12 @@ const CreateForm = () => {
   };
 
   const users = [{ id: 1, fullName: 'test1' }, { id: 2, fullName: 'test2' }];
-  const sheets = [{ id: 1, name: 'test1', level: 1 }, { id: 2, name: 'test2', level: 2 }];
+  // let sheets = [{ id: 1, name: 'test1', level: 1 }, { id: 2, name: 'test2', level: 2 }];
+  useEffect(() => {
+    if(!isQuestionLoading){
+      setLoading(false);
+    }
+  }, [isQuestionLoading]);
 
   return (
     <>
@@ -76,11 +97,11 @@ const CreateForm = () => {
                 <UserSelect
                   {...field}
                   users={users}
-                  variant="outlined"
+                  variant='outlined'
                   required
                   labelId='user-select-label'
                   id='user-select'
-                  label="申請ユーザー"
+                  label='申請ユーザー'
                 />
               </FormControl>
             }
@@ -94,7 +115,7 @@ const CreateForm = () => {
             rules={{ required: '選択してください' }}
             render={({ field }) =>
               <FormControl
-                variant="outlined"
+                variant='outlined'
                 fullWidth>
                 <InputLabel id='sheet-select-label'>評価シート</InputLabel>
                 <SheetSelect
@@ -103,7 +124,7 @@ const CreateForm = () => {
                   required
                   labelId='sheet-select-label'
                   id='sheet-select'
-                  label="評価シート"
+                  label='評価シート'
                 />
               </FormControl>
             }
