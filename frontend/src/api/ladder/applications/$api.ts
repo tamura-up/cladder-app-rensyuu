@@ -1,26 +1,26 @@
-import type { AspidaClient, BasicHeaders } from 'aspida'
-import { dataToURLString } from 'aspida'
-import type { Methods as Methods0 } from '.'
-import type { Methods as Methods1 } from './_applicationPk@number/evaluation_summary'
-import type { Methods as Methods2 } from './_applicationPk@number/evaluations'
-import type { Methods as Methods3 } from './_applicationPk@number/evaluations/_id@number'
-import type { Methods as Methods4 } from './_id@number'
-import type { Methods as Methods5 } from './search'
+import type { AspidaClient, BasicHeaders } from 'aspida';
+import { dataToURLString } from 'aspida';
+import type { Methods as Methods0 } from '.';
+import type { Methods as Methods1 } from './_applicationPk@number/evaluation_summary';
+import type { Methods as Methods2 } from './_applicationPk@number/evaluations';
+import type { Methods as Methods3 } from './_applicationPk@number/evaluations/_id@number';
+import type { Methods as Methods4 } from './_id@number';
+import type { Methods as Methods5 } from './search';
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
-  const prefix = (baseURL === undefined ? '' : baseURL).replace(/\/$/, '')
-  const PATH0 = '/ladder/applications'
-  const PATH1 = '/evaluation_summary'
-  const PATH2 = '/evaluations'
-  const PATH3 = '/ladder/applications/search'
-  const GET = 'GET'
-  const POST = 'POST'
-  const DELETE = 'DELETE'
-  const PATCH = 'PATCH'
+  const prefix = (baseURL === undefined ? '' : baseURL).replace(/\/$/, '');
+  const PATH0 = '/ladder/applications';
+  const PATH1 = '/evaluation_summary';
+  const PATH2 = '/evaluations';
+  const PATH3 = '/ladder/applications/search';
+  const GET = 'GET';
+  const POST = 'POST';
+  const DELETE = 'DELETE';
+  const PATCH = 'PATCH';
 
   return {
     _applicationPk: (val0: number) => {
-      const prefix0 = `${PATH0}/${val0}`
+      const prefix0 = `${PATH0}/${val0}`;
 
       return {
         evaluation_summary: {
@@ -54,11 +54,11 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
            */
           $patch: (option: { body: Methods1['patch']['reqBody'], config?: T | undefined }) =>
             fetch<Methods1['patch']['resBody'], BasicHeaders, Methods1['patch']['status']>(prefix, `${prefix0}${PATH1}`, PATCH, option, 'FormData').json().then(r => r.body),
-          $path: () => `${prefix}${prefix0}${PATH1}`
+          $path: () => `${prefix}${prefix0}${PATH1}`,
         },
         evaluations: {
           _id: (val2: number) => {
-            const prefix2 = `${prefix0}${PATH2}/${val2}`
+            const prefix2 = `${prefix0}${PATH2}/${val2}`;
 
             return {
               /**
@@ -91,8 +91,8 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
                */
               $delete: (option?: { config?: T | undefined } | undefined) =>
                 fetch<void, BasicHeaders, Methods3['delete']['status']>(prefix, prefix2, DELETE, option).send().then(r => r.body),
-              $path: () => `${prefix}${prefix2}`
-            }
+              $path: () => `${prefix}${prefix2}`,
+            };
           },
           /**
            * ラダー評価
@@ -115,12 +115,12 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
           $post: (option: { body: Methods2['post']['reqBody'], config?: T | undefined }) =>
             fetch<Methods2['post']['resBody'], BasicHeaders, Methods2['post']['status']>(prefix, `${prefix0}${PATH2}`, POST, option, 'FormData').json().then(r => r.body),
           $path: (option?: { method?: 'get' | undefined; query: Methods2['get']['query'] } | undefined) =>
-            `${prefix}${prefix0}${PATH2}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
-        }
-      }
+            `${prefix}${prefix0}${PATH2}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`,
+        },
+      };
     },
     _id: (val0: number) => {
-      const prefix0 = `${PATH0}/${val0}`
+      const prefix0 = `${PATH0}/${val0}`;
 
       return {
         /**
@@ -159,8 +159,8 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
          */
         $delete: (option?: { config?: T | undefined } | undefined) =>
           fetch<void, BasicHeaders, Methods4['delete']['status']>(prefix, prefix0, DELETE, option).send().then(r => r.body),
-        $path: () => `${prefix}${prefix0}`
-      }
+        $path: () => `${prefix}${prefix0}`,
+      };
     },
     search: {
       /**
@@ -174,7 +174,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
       $get: (option?: { query?: Methods5['get']['query'] | undefined, config?: T | undefined } | undefined) =>
         fetch<Methods5['get']['resBody'], BasicHeaders, Methods5['get']['status']>(prefix, PATH3, GET, option).json().then(r => r.body),
       $path: (option?: { method?: 'get' | undefined; query: Methods5['get']['query'] } | undefined) =>
-        `${prefix}${PATH3}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
+        `${prefix}${PATH3}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`,
     },
     /**
      * ラダー評価申請。
@@ -201,9 +201,9 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
     $post: (option: { body: Methods0['post']['reqBody'], config?: T | undefined }) =>
       fetch<Methods0['post']['resBody'], BasicHeaders, Methods0['post']['status']>(prefix, PATH0, POST, option, 'FormData').json().then(r => r.body),
     $path: (option?: { method?: 'get' | undefined; query: Methods0['get']['query'] } | undefined) =>
-      `${prefix}${PATH0}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
-  }
-}
+      `${prefix}${PATH0}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`,
+  };
+};
 
-export type ApiInstance = ReturnType<typeof api>
-export default api
+export type ApiInstance = ReturnType<typeof api>;
+export default api;

@@ -292,6 +292,13 @@ export type PaginatedSummaryAdditionalEvaluationItemList = {
   results?: SummaryAdditionalEvaluationItem[] | undefined
 }
 
+export type PaginatedUserList = {
+  count?: number | undefined
+  next?: string | null | undefined
+  previous?: string | null | undefined
+  results?: User[] | undefined
+}
+
 /** ラダー評価申請登録 */
 export type PatchedEvaluationApplicationWriteRequest = {
   /** 申請者ユーザーID */
@@ -439,6 +446,8 @@ export type User = {
   firstName?: string | undefined
   lastName?: string | undefined
   profileIcon?: string | null | undefined
+  /** フルネーム */
+  fullName: string
 }
 
 /** ユーザー情報。ユーザー本人及び上位権限者のみ参照できる情報です */

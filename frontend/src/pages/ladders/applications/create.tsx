@@ -3,16 +3,12 @@ import { useRequireLogin } from '@/components/shared/CurrentUser/hooks/useRequir
 import CreateApplicationContainer from '@/components/ladders/applications/create';
 
 const LadderApplication: NextPageWithLayout = () => {
-  const {loading}=useRequireLogin();
-  if (loading) {
-    return (<>loading...</>);
-  } else {
-    return (
-      <div>
-        <CreateApplicationContainer />
-      </div>
-    );
-  }
+  useRequireLogin();
+  return (
+    <div>
+      <CreateApplicationContainer />
+    </div>
+  );
 };
 
 export default LadderApplication;

@@ -16,11 +16,12 @@ import { useAspidaQuery } from '@aspida/react-query';
 
 
 const CreateForm = () => {
-  const [loading, setLoading] = useState(true);
+  const [initDataLoading, setInitDataLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [, addMessage] = useAtom(messageAtom);
   const [nonFieldErrors, setNonFieldErrors] = useState<string[] | null>(null);
 
-  const [sheets,setSheets]=useState<LadderSheet[]>([]);
+  const [sheets, setSheets] = useState<LadderSheet[]>([]);
   const {
     handleSubmit,
     control,
@@ -28,17 +29,34 @@ const CreateForm = () => {
     formState: { errors },
   } = useForm<EvaluationApplicationWriteRequest>();
 
+  // ユーザー情報取得
+  const {
+    data: userData,
+    isLoading: isUsersLoading,
+  } = useAspidaQuery(apiClient.accounts.users, {
+    query: { limit: 1000 },
+    onError: () => {
+      addMessage({ text: '予期せぬエラーが発生しました。', 'variant': 'error' });
+    },
+  });
   // シートデータの取得
   const {
-    isLoading:isQuestionLoading,
-  } = useAspidaQuery(apiClient.ladder.sheets, { query: { limit: 1000 } ,
-    onSuccess:(data)=>{
-      setSheets(data.results!);
-    },
-    onError:()=>{
+    data: rawSheetData,
+    isLoading: isSheetLoading,
+  } = useAspidaQuery(apiClient.ladder.sheets, {
+    query: { limit: 1000 },
+    onError: () => {
       addMessage({ text: '予期せぬエラーが発生しました。', 'variant': 'error' });
-    }
+    },
   });
+  useEffect(() => {
+    if (!!rawSheetData) {
+      setSheets(rawSheetData.results || []);
+    }
+  }, [rawSheetData]);
+  useEffect(() => {
+    setInitDataLoading(isSheetLoading || isUsersLoading);
+  }, [isSheetLoading, isUsersLoading]);
 
 
   const postRegister = (body: EvaluationApplicationWriteRequest) => {
@@ -73,15 +91,6 @@ const CreateForm = () => {
     setLoading(true);
     setNonFieldErrors(null);
   };
-
-  const users = [{ id: 1, fullName: 'test1' }, { id: 2, fullName: 'test2' }];
-  // let sheets = [{ id: 1, name: 'test1', level: 1 }, { id: 2, name: 'test2', level: 2 }];
-  useEffect(() => {
-    if(!isQuestionLoading){
-      setLoading(false);
-    }
-  }, [isQuestionLoading]);
-
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -96,7 +105,7 @@ const CreateForm = () => {
                 <InputLabel id='user-select-label'>申請ユーザー</InputLabel>
                 <UserSelect
                   {...field}
-                  users={users}
+                  users={userData ? userData!.results! : []}
                   variant='outlined'
                   required
                   labelId='user-select-label'
@@ -132,7 +141,7 @@ const CreateForm = () => {
           <FieldErrorMessages name='sheet' errors={errors} />
 
           <FormErrorMessages errors={nonFieldErrors} />
-          <Button type='submit' variant='contained' disabled={loading}>申請を提出</Button>
+          <Button type='submit' variant='contained' disabled={loading || initDataLoading}>申請を提出</Button>
         </Stack>
       </form>
 
