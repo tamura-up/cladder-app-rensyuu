@@ -17,3 +17,10 @@ class User(AbstractUser):
         },
     )
     profile_icon = models.ImageField(_("profile icon"), upload_to="profile_icons", null=True, blank=True)
+
+    def full_name(self) -> str:
+        """フルネーム"""
+        try:
+            return self.last_name + " " + self.first_name
+        except:
+            return ""

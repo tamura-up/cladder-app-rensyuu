@@ -2,6 +2,7 @@ from django.conf.urls import include
 from django.urls import path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
+import accounts.urls
 import ladder.urls
 import ladder_evaluations.urls
 
@@ -20,5 +21,6 @@ urlpatterns = [
 # 各 application の urls をここに追加していく
 
 urlpatterns += auth.urlpatterns
+urlpatterns += [path("accounts/", include(accounts.urls))]
 urlpatterns += [path("ladder/", include(ladder.urls))]
 urlpatterns += [path("ladder/", include(ladder_evaluations.urls))]

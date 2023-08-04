@@ -194,7 +194,8 @@ REST_AUTH = dict(
 )
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=config("ACCESS_TOKEN_LIFETIME_MINUTES", cast=int, default=60)),
+    # "ACCESS_TOKEN_LIFETIME": timedelta(minutes=config("ACCESS_TOKEN_LIFETIME_MINUTES", cast=int, default=60)),
+    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=10),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=config("REFRESH_TOKEN_LIFETIME_DAYS", cast=int, default=30)),
     "ROTATE_REFRESH_TOKENS": True,
 }
@@ -222,6 +223,6 @@ SPECTACULAR_SETTINGS = {
     # これを除けるように設定をする。
     # 注) True の場合、swagger での API アクセスは 404 エラーとなる。
     "SCHEMA_PATH_PREFIX_TRIM": "/api/"
-    if not config("DISABLE_SCHEMA_PATH_PREFIX_TRIM", cast=bool, default=False)
+    if config("ENABLED_SCHEMA_PATH_PREFIX_TRIM", cast=bool, default=True)
     else "",
 }
