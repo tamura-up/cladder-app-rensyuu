@@ -13,7 +13,7 @@ import { useAtom } from 'jotai';
 // @ts-ignore
 const DefaultLayout = ({ children }) => {
   const router = useRouter();
-  const { currentUser } = useCurrentUser();
+  const { currentUser, isAuthChecking } = useCurrentUser();
   const [, setCurrentUser] = useAtom(currentUserAtom);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -32,15 +32,23 @@ const DefaultLayout = ({ children }) => {
   };
 
   const goHome = () => {
-    router.push('/');
+    router.push('/home');
   };
+
+  const headContent = (
+    <Head>
+      <title>サイトタイトル</title>
+      <meta name='description' content='サイトタイトル' />
+      <link rel='icon' href='/favicon.ico' />
+    </Head>
+
+  );
+  if (isAuthChecking) {
+    return (<>{headContent}<div>loading...</div></>);
+  }
   return (
     <>
-      <Head>
-        <title>サイトタイトル</title>
-        <meta name='description' content='サイトタイトル' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
+      {headContent}
       <div style={{ minHeight: '100vh' }}>
         {/* @ts-ignore */}
         <AppBar position='static' sx={{ backgroundColor: 'primary.dark' }}>

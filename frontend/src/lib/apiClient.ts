@@ -61,6 +61,8 @@ export const refreshToken = () => {
 
   if (compareAsc(expireAt, dt) <= 0) {
     localStorage.removeItem('tokenExpireAt');
+    localStorage.setItem('refreshAt',(new Date()).getTime().toString());
+
 
     return apiClient.auth.token.refresh.$post()
       .then(res => {
