@@ -3,7 +3,6 @@ import { Button, Stack, TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 
 import { useRouter } from 'next/navigation'
-import { useMutation } from 'react-query';
 import { useState } from 'react';
 import FieldErrorMessages from '@/components/shared/FieldErrorMessages';
 import { useAtom } from 'jotai';
@@ -13,6 +12,7 @@ import { preprocessApiError, reformatToHookFormStyle } from '@/lib/apiErrorHandl
 import { AxiosError } from 'axios';
 import FormErrorMessages from '@/components/shared/FormErrorMessages';
 import { LoginRequest } from '@/api/@types';
+import { useMutation } from '@tanstack/react-query';
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
