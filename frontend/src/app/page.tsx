@@ -7,6 +7,7 @@ export default function Home() {
     <main>
       aaa
       <Link href="/login">ログイン</Link>
+      <Link href="/ladders/applications/create">ラダー申請</Link>
     </main>
   )
 }

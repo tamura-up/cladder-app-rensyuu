@@ -1,5 +1,6 @@
 import { Box, Container, Paper, Typography } from '@mui/material';
 import CreateForm from '@/components/ladders/applications/create/CreateForm';
+import Link from 'next/link';
 
 const CreateApplicationContainer = () => {
   return (
@@ -10,6 +11,7 @@ const CreateApplicationContainer = () => {
           <CreateForm />
         </Box>
       </Paper>
+      <Link href='/'>back</Link>
     </Container>
   );
 };

@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router';
 import { useCurrentUser } from './useCurrentUser';
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 /*
  * ログインしていない場合にリダイレクトする hook

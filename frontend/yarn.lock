@@ -12,11 +12,6 @@
   resolved "https://registry.yarnpkg.com/@aspida/axios/-/axios-1.14.0.tgz#5e09df540863e8492b694cdf6acc85186928ce7c"
   integrity sha512-KJcbWwaNBF/hno07yrp6nr1DdzJdtrKuWv1PJRVqZFQYYdDYjRlOLtOpFzylbWU+eNCtDhL9LjfZD8YNfxoe3Q==
 
-"@aspida/react-query@^1.12.0":
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/@aspida/react-query/-/react-query-1.14.0.tgz#be441937800035c269f534ae74e668878286e3c2"
-  integrity sha512-v+y6g5sYWvzxI5gWXMJwA/6SxpMFNReXCPdUfT1TB52lofBup+UigBFtofzNR5mcLIQpr+rq6NX2Dx9FnKeSGA==
-
 "@babel/code-frame@^7.0.0":
   version "7.22.5"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.22.5.tgz#234d98e1551960604f1246e6475891a570ad5658"

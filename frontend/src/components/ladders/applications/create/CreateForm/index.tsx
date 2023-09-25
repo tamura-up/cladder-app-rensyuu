@@ -13,8 +13,7 @@ import { apiClient } from '@/lib/apiClient';
 import { AxiosError } from 'axios';
 import UserSelect from '@/components/shared/UserSelect';
 import SheetSelect from '@/components/shared/SheetSelect';
-import { useAspidaQuery } from '@aspida/react-query';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 
 const CreateForm = () => {
@@ -35,22 +34,16 @@ const CreateForm = () => {
   const {
     data: userData,
     isLoading: isUsersLoading,
-  } = useAspidaQuery(apiClient.accounts.users, {
-    query: { limit: 1000 },
-    onError: () => {
-      addMessage({ text: '予期せぬエラーが発生しました。', 'variant': 'error' });
-    },
-  });
+  } = useQuery(
+    ['users'],
+    () => apiClient.accounts.users.$get({ query: { limit: 1000 } }),
+  );
   // シートデータの取得
   const {
     data: rawSheetData,
     isLoading: isSheetLoading,
-  } = useAspidaQuery(apiClient.ladder.sheets, {
-    query: { limit: 1000 },
-    onError: () => {
-      addMessage({ text: '予期せぬエラーが発生しました。', 'variant': 'error' });
-    },
-  });
+  } = useQuery(['ladder.sheats'], ()=>apiClient.ladder.sheets.$get());
+
   useEffect(() => {
     if (!!rawSheetData) {
       setSheets(rawSheetData.results || []);
