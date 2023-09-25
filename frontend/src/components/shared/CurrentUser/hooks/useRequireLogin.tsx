@@ -14,4 +14,6 @@ export function useRequireLogin() {
 
     if (!currentUser) router.push('/'); // 未ログインだったのでリダイレクト
   }, [isAuthChecking, currentUser]);
+  const loading=  isAuthChecking;
+  return {loading}
 }

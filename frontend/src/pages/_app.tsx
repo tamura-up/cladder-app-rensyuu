@@ -14,6 +14,7 @@ import { defaultTheme } from '@/lib/themes';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import { currentUserAtom } from '@/lib/jotaiAtom';
 import { apiClient, refreshToken } from '@/lib/apiClient';
+import { addMilliseconds } from 'date-fns';
 
 
 /*
@@ -41,10 +42,20 @@ function AppInit() {
   useEffect(() => {
     (async function() {
       try {
-        await refreshToken();
+        /* ************ */
+        // 以下2行ほんとはいらないはずだが、デバッグ時の(?)2重リクエストのときに2回認証しようとするのを回避する
+        const refreshAt = localStorage.getItem('refreshAt');
+        if (refreshAt && new Date(Number(refreshAt!)) >= addMilliseconds(new Date(), -1000)) return;
+        /* ************ */
+
+        const refreshPromise = refreshToken();
+        if (refreshPromise !== null) {
+          await refreshPromise;
+        }
         // サーバーへのリクエスト（未ログインの場合は401等を返すものとする）
         const user = await apiClient.auth.login_user.$get();
         setCurrentUser(user);
+
       } catch {
         // 未ログイン（未ログイン時のリダイレクト処理などをここに書いても良いかも）
         setCurrentUser(null);
