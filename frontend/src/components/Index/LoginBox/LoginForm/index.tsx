@@ -1,7 +1,8 @@
+'use client';
 import { Button, Stack, TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation'
 import { useMutation } from 'react-query';
 import { useState } from 'react';
 import FieldErrorMessages from '@/components/shared/FieldErrorMessages';

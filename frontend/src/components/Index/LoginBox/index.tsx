@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Container, Paper, Typography } from '@mui/material';
 import LoginForm from '@/components/Index/LoginBox/LoginForm';
 
