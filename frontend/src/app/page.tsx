@@ -2,9 +2,14 @@
 
 import Link from 'next/link';
 import { useCurrentUser } from '@/components/shared/CurrentUser/hooks/useCurrentUser';
+import { Button } from '@mui/material';
 
 export default function Home() {
   const { currentUser } = useCurrentUser();
+
+  const onclick = () => {
+    console.log('onclick');
+  };
 
   return (
     <main>
@@ -14,6 +19,8 @@ export default function Home() {
       <div>
         current user:
         <div>{currentUser ? JSON.stringify(currentUser) : 'undefined'}</div>
+
+        <div><Button onClick={onclick}>btn</Button></div>
       </div>
     </main>
   );

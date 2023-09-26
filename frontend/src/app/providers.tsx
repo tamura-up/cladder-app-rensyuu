@@ -7,6 +7,7 @@ import { queryClientConfig } from '@/lib/get-query-client';
 
 import { createStore, Provider } from 'jotai';
 import { DevTools } from 'jotai-devtools';
+import { SnackbarProvider } from 'notistack';
 
 const customStore = createStore();
 
@@ -15,11 +16,13 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={client}>
+      <SnackbarProvider maxSnack={4}>
       <Provider store={customStore}>
         <DevTools store={customStore} />
-        {children}
+          {children}
       </Provider>
       <ReactQueryDevtools initialIsOpen={false} />
+      </SnackbarProvider>
     </QueryClientProvider>
   );
 }
