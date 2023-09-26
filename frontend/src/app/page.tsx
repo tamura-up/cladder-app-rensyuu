@@ -5,7 +5,6 @@ import { useCurrentUser } from '@/components/shared/CurrentUser/hooks/useCurrent
 
 export default function Home() {
   const { currentUser } = useCurrentUser();
-  console.log('user', currentUser);
 
   return (
     <main>
