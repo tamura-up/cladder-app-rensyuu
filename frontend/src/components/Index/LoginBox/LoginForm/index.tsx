@@ -32,7 +32,7 @@ const LoginForm = () => {
     onSuccess: (res) => {
       setCurrentUser(res.user);
       addMessage({ text: `ごきげんよう、${res.user.username} さん`, 'variant': 'success' });
-      router.push('/home');
+      router.push('/');
     },
     onError: (error: AxiosError) => {
       const formMsg = preprocessApiError(error);
