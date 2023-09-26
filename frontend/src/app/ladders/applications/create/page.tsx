@@ -1,14 +1,17 @@
-import type { NextPageWithLayout } from 'next';
+'use client';
+
+import React from 'react';
 import { useRequireLogin } from '@/components/shared/CurrentUser/hooks/useRequireLogin';
 import CreateApplicationContainer from '@/components/ladders/applications/create';
 
-const LadderApplication: NextPageWithLayout = () => {
+export default function Home() {
   useRequireLogin();
+
   return (
     <div>
-      <CreateApplicationContainer />
+      <div>
+        <CreateApplicationContainer />
+      </div>
     </div>
   );
-};
-
-export default LadderApplication;
+}

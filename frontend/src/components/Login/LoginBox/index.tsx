@@ -1,5 +1,7 @@
+'use client';
+
 import { Box, Container, Paper, Typography } from '@mui/material';
-import LoginForm from '@/components/Index/LoginBox/LoginForm';
+import LoginForm from '@/components/Login/LoginBox/LoginForm';
 
 const LoginBox = () => {
   return (

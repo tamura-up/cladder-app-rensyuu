@@ -1,8 +1,8 @@
+'use client';
 import { Button, Stack, TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 
-import { useRouter } from 'next/router';
-import { useMutation } from 'react-query';
+import { useRouter } from 'next/navigation'
 import { useState } from 'react';
 import FieldErrorMessages from '@/components/shared/FieldErrorMessages';
 import { useAtom } from 'jotai';
@@ -12,6 +12,7 @@ import { preprocessApiError, reformatToHookFormStyle } from '@/lib/apiErrorHandl
 import { AxiosError } from 'axios';
 import FormErrorMessages from '@/components/shared/FormErrorMessages';
 import { LoginRequest } from '@/api/@types';
+import { useMutation } from '@tanstack/react-query';
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
@@ -31,7 +32,7 @@ const LoginForm = () => {
     onSuccess: (res) => {
       setCurrentUser(res.user);
       addMessage({ text: `ごきげんよう、${res.user.username} さん`, 'variant': 'success' });
-      router.push('/home');
+      router.push('/');
     },
     onError: (error: AxiosError) => {
       const formMsg = preprocessApiError(error);

@@ -1,7 +1,10 @@
 import { Box, Container, Paper, Typography } from '@mui/material';
 import CreateForm from '@/components/ladders/applications/create/CreateForm';
+import Link from 'next/link';
+import { useCurrentUser } from '@/components/shared/CurrentUser/hooks/useCurrentUser';
 
 const CreateApplicationContainer = () => {
+
   return (
     <Container maxWidth='sm'>
       <Paper>
@@ -10,6 +13,7 @@ const CreateApplicationContainer = () => {
           <CreateForm />
         </Box>
       </Paper>
+      <Link href='/'>back</Link>
     </Container>
   );
 };

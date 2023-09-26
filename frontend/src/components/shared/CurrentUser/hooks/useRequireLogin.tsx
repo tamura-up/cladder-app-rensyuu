@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router';
 import { useCurrentUser } from './useCurrentUser';
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 /*
  * ログインしていない場合にリダイレクトする hook
@@ -14,6 +14,6 @@ export function useRequireLogin() {
 
     if (!currentUser) router.push('/'); // 未ログインだったのでリダイレクト
   }, [isAuthChecking, currentUser]);
-  const loading=  isAuthChecking;
-  return {loading}
+  const loading = isAuthChecking;
+  return { loading };
 }
