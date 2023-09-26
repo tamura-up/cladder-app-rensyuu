@@ -14,8 +14,11 @@ export default function Home() {
   return (
     <main>
       aaa
-      <Link href='/login'>ログイン</Link>
-      <Link href='/ladders/applications/create'>ラダー申請</Link>
+      <ul>
+        <li><Link href='/login'>ログイン</Link></li>
+        <li><Link href='/ladders/applications/create'>ラダー申請</Link></li>
+        <li><Link href='/accounts/create'>ユーザー追加</Link></li>
+      </ul>
       <div>
         current user:
         <div>{currentUser ? JSON.stringify(currentUser) : 'undefined'}</div>

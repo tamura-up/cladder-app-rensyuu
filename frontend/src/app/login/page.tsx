@@ -4,7 +4,7 @@ import { useCurrentUser } from '@/components/shared/CurrentUser/hooks/useCurrent
 import React, { useEffect } from 'react';
 
 import { useRouter } from 'next/navigation'
-import LoginBox from '@/components/Index/LoginBox';
+import LoginBox from '@/components/Login/LoginBox';
 export default function Home() {
   const { currentUser, isAuthChecking } = useCurrentUser();
 

@@ -1,3 +1,4 @@
+'use client';
 import {
   Alert,
   AlertTitle,
@@ -12,7 +13,6 @@ import {
 } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import FieldErrorMessages from '@/components/shared/FieldErrorMessages';
 import { useAtom } from 'jotai';
@@ -20,11 +20,11 @@ import { messageAtom } from '@/lib/jotaiAtom';
 import FormErrorMessages from '@/components/shared/FormErrorMessages';
 import { RegisterUserRequest } from '@/api/@types';
 import { preprocessApiError, reformatToHookFormStyle } from '@/lib/apiErrorHandle';
-import { useMutation } from 'react-query';
 import { apiClient } from '@/lib/apiClient';
 import { AxiosError } from 'axios';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useMutation } from '@tanstack/react-query';
 
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 /*
  * ランダムなパスワードを作成
  * 参考: https://qiita.com/fukasawah/items/db7f0405564bdc37820e
